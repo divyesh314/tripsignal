@@ -10,7 +10,7 @@
 
 Every signal shows **the evidence behind it and where it came from**, so the traveller (or an Operations team) can check it rather than just trust it.
 
-**Live app:** [ADD YOUR VERCEL LINK]  ·  **Code:** [ADD YOUR GITHUB LINK]
+**Live app:** (https://tripsignal-lfff.vercel.app/signin)  ·  **Code:** (https://github.com/divyesh314/tripsignal)
 
 Built for the Red Alpha Forward Deployed Engineer project assignment.
 
@@ -30,20 +30,28 @@ I built TripSignal together with an AI assistant (Claude). I want to be clear ab
 - **Web app, not mobile app.** I chose a responsive web app so it works on any device without app stores.
 - **The stack.** Next.js for the frontend, PostgreSQL for structured data, MongoDB for raw source data, and a Postgres table as the job queue (instead of adding Redis). Deployed on Vercel, Render and MongoDB Atlas.
 - **Setting up and running everything.** I created and configured the GitHub repo, the Atlas cluster, the Render database and the Vercel project. I set the environment variables and secrets, created the database tables, and tested the live app.
-- **Review and refactor.** [Describe what you changed when you rewrote/shortened the code.]
+
+### My engineering work on the code
+
+The AI wrote the first version of the code. I then went through the codebase file by file to understand every part (data sources, scoring engine, job queue, API routes and pages) and rewrote it to be shorter and clearer, keeping the tests passing after every change.
+
+- **Size:** reduced the code of TypeScript, with the same features and all 15 tests passing.
+
+
+Going through the code this deeply is what lets me explain and defend every design decision in it, not just the parts I designed on paper.
 
 ### What the AI helped with
 
 - **Researching the problem.** Listing 68 possible travel disruptions, from thunderstorms and FAA ground stops to tight connections and holidays. It checked which have **free** public data sources, then scored each by likelihood × impact to decide what to build and what to leave out. This became `Travel_Disruption_Obstacles.xlsx`.
 - **Design.** Turning my ideas into screen designs (sign-in, trip planner, green/orange/red results, red-alert popup, baggage check), first for mobile, then as a web app in the same colours.
 - **Architecture.** Drawing the backend diagram and proposing the split between Postgres (users, trips, scores, job queue) and MongoDB (raw API responses as a cache, and the evidence behind each score).
-- **Writing the code.** The Next.js pages, API routes, one adapter per data source, the scoring engine, the job queue and worker, and the database schema.
+- **Writing the first version of the code.** The Next.js pages, API routes, one adapter per data source, the scoring engine, the job queue and worker, and the database schema. I then reviewed and refactored it (see above).
 - **Testing.** Writing 15 automated tests and running the whole app end to end against real databases with sample data. Testing caught a real bug: when weather sources were unreachable, the app showed a misleading **green** light. It now shows **"No signal yet"** instead of a false all-clear.
 - **Deployment guidance.** Walking me through Atlas, Render, Vercel and GitHub step by step, and replacing a paid background worker with a free GitHub Actions schedule.
 
 ### How we worked
 
-I described what I wanted in plain language, reviewed each step (obstacle list, designs, architecture, code), and pushed back or changed direction when something didn't fit. For example, I switched the design from mobile to web, and chose the Postgres job table. The AI did the heavy lifting on research, code and tests; I made the product decisions, set up the real infrastructure, and own the result.
+I described what I wanted in plain language, reviewed each step (obstacle list, designs, architecture, code), and pushed back or changed direction when something didn't fit. For example, I switched the design from mobile to web, and chose the Postgres job table. The AI moved fast on research, a first draft of the code and tests. I made the product decisions, set up the real infrastructure, then took ownership of the code itself by reading it end to end and rewriting it to be leaner.
 
 ---
 
